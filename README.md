@@ -11,7 +11,7 @@ The User Service manages user-related functionalities, including user registrati
 The Product Service handles the catalog of products, managing inventory, product details, and pricing. It communicates with the User Service to fetch user information and updates its inventory based on orders placed through the Order Service.
 
 3. [Order Service](https://github.com/abhishekY2401/order-service)
-The Order Service processes user orders, managing the lifecycle of an order from placement to fulfillment. It emits events to other services (e.g., Order Placed, Order Shipped) using RabbitMQ for event-driven communication, ensuring consistent state management across the microservices.
+The Order Service processes user orders, managing the lifecycle of an order from placement to fulfillment. It emits events to other services (e.g., Order Placed) using RabbitMQ for event-driven communication, ensuring consistent state management across the microservices.
 
 ## 🛠️ Technologies Used
 
