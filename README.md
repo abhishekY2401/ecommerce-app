@@ -46,6 +46,7 @@ cd ecommerce-app
 ### Environment Variables
 
 Make sure to update the sensitive environment variables in a .env file for security purpose. The following environment variables are used:
+
 DATABASE_URL: Connection string for PostgreSQL (for an example)
 ``` 
 postgresql://{postgres_user}:{postgres_password}@{database_container_name}:5432/{postgres_db_name}
@@ -61,14 +62,16 @@ JWT_SECRET_KEY: Secret key for JWT authentication.
 docker-compose up --build
 ```
 
-This will build the docker images for each service
-Start all the services in the background
+    This will build the docker images for each service
+    Start all the services in the background
 
 2. Accessing Services: Once the services are up and running, you can access them through the following ports:
 
-User Service -> http://localhost:8000
-Product Service -> http://localhost:7000
-Order Service -> http://localhost:5000
+    User Service -> http://localhost:8000
+    
+    Product Service -> http://localhost:7000
+    
+    Order Service -> http://localhost:5000
 
 ### Stopping Services
 
