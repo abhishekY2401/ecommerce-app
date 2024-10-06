@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: user-service
     environment:
-      - DATABASE_URL=postgresql://postgres:Abhiraj123@user-db:5432/users_db
-      - RABBITMQ_URI=amqps://bydnarep:8ooLiUgJINFWUCNHiHQLoNdEJ29g72X6@lionfish.rmq.cloudamqp.com/bydnarep
-      - JWT_SECRET_KEY=44f4d47a8451543bed9230669bfe6c69da352491c7b896049dc915edd440aa2213a8f798e7dd262f87688ca800677519715537016a88d44046adc281a8fc7ca3d04129158bf0108051d0b0a9ebc689e3fc154bc7454eeaaeeb1c0cc5d3c1792ad55a10f47b82098701fc247fc0c87e75b4f6083e819a65482af2ebacbea4e1b8db1eef87942b379c3af470228929d9ef4cb9ea93e8e8fd6fb1ad117eff6f6786fc118b2e9dc322cc0fd0c6d1371888d48b0ea81cffd961a16061700c82cd362fd28dca63b2ae38a2a3aa9ce551b790bae1b4f53adfe2a9b7eee00727480389b460361bb5e5b515825f574d4e880251f050c99b2c5866d746edb46b044c6b166c
+      - DATABASE_URL=${DATABASE_URL_USER}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - "8000:8000"
     depends_on:
@@ -23,9 +23,9 @@ services:
       dockerfile: Dockerfile
     container_name: product-service
     environment:
-      - DATABASE_URL=postgresql://postgres:Abhiraj123@product-db:5432/products_db
-      - RABBITMQ_URI=amqps://bydnarep:8ooLiUgJINFWUCNHiHQLoNdEJ29g72X6@lionfish.rmq.cloudamqp.com/bydnarep
-      - JWT_SECRET_KEY=44f4d47a8451543bed9230669bfe6c69da352491c7b896049dc915edd440aa2213a8f798e7dd262f87688ca800677519715537016a88d44046adc281a8fc7ca3d04129158bf0108051d0b0a9ebc689e3fc154bc7454eeaaeeb1c0cc5d3c1792ad55a10f47b82098701fc247fc0c87e75b4f6083e819a65482af2ebacbea4e1b8db1eef87942b379c3af470228929d9ef4cb9ea93e8e8fd6fb1ad117eff6f6786fc118b2e9dc322cc0fd0c6d1371888d48b0ea81cffd961a16061700c82cd362fd28dca63b2ae38a2a3aa9ce551b790bae1b4f53adfe2a9b7eee00727480389b460361bb5e5b515825f574d4e880251f050c99b2c5866d746edb46b044c6b166c
+      - DATABASE_URL=${DATABASE_URL_PRODUCT}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - "7000:7000"
     depends_on:
@@ -39,9 +39,9 @@ services:
       dockerfile: Dockerfile
     container_name: order-service
     environment:
-      - DATABASE_URL=postgresql://postgres:Abhiraj123@order-db:5432/orders_db
-      - RABBITMQ_URI=amqps://bydnarep:8ooLiUgJINFWUCNHiHQLoNdEJ29g72X6@lionfish.rmq.cloudamqp.com/bydnarep
-      - JWT_SECRET_KEY=44f4d47a8451543bed9230669bfe6c69da352491c7b896049dc915edd440aa2213a8f798e7dd262f87688ca800677519715537016a88d44046adc281a8fc7ca3d04129158bf0108051d0b0a9ebc689e3fc154bc7454eeaaeeb1c0cc5d3c1792ad55a10f47b82098701fc247fc0c87e75b4f6083e819a65482af2ebacbea4e1b8db1eef87942b379c3af470228929d9ef4cb9ea93e8e8fd6fb1ad117eff6f6786fc118b2e9dc322cc0fd0c6d1371888d48b0ea81cffd961a16061700c82cd362fd28dca63b2ae38a2a3aa9ce551b790bae1b4f53adfe2a9b7eee00727480389b460361bb5e5b515825f574d4e880251f050c99b2c5866d746edb46b044c6b166c
+      - DATABASE_URL=${DATABASE_URL_ORDER}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - "5000:5000"
     depends_on:
@@ -53,8 +53,8 @@ services:
     image: postgres:13
     container_name: user-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Abhiraj123
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: users_db
     volumes:
       - user-db-data:/var/lib/postgresql/data
@@ -63,18 +63,13 @@ services:
       - "5432:5432"
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   product-db:
     image: postgres:13
     container_name: product-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Abhiraj123
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: products_db
     volumes:
       - product-db-data:/var/lib/postgresql/data
@@ -83,18 +78,13 @@ services:
       - "5433:5432"
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   order-db:
     image: postgres:13
     container_name: order-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Abhiraj123
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: orders_db
     volumes:
       - order-db-data:/var/lib/postgresql/data
@@ -103,11 +93,6 @@ services:
       - "5434:5432"
     networks:
       - app-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
 volumes:
   user-db-data:
